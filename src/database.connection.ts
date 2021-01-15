@@ -1,6 +1,6 @@
 const mysql = require('mysql2');
 
-export const connection = mysql.createPool({
+export const dbConnection = mysql.createPool({
     host: "remote.ac",
     user: "WS269879_CSG_GOD",
     password: "T2y#0Dg&&A^OEThZVJmj",
