@@ -53,7 +53,7 @@ export default async function getAllPlayersOwnedGames(req: NextApiRequest, res: 
             const steamApiResponse = await axios.get(`http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=${process.env.STEAMAPIKEY}&steamid=${steamIdsArray[i].steamid64}&format=json&include_appinfo=1&include_played_free_games=true`);
 
             if (steamApiResponse.status !== 200) {
-                return onSteamApiFail(res, steamApiResponse)
+                continue;
             }
 
             await dbConnection.promise().query(`DELETE FROM \`games\` WHERE \`steamid64\` = '${steamIdsArray[i].steamid64}'`);

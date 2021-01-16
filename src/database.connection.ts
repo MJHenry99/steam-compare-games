@@ -1,9 +1,9 @@
 const mysql = require('mysql2');
 
 export const dbConnection = mysql.createPool({
-    host: "remote.ac",
-    user: "WS269879_CSG_GOD",
-    password: "T2y#0Dg&&A^OEThZVJmj",
-    database: "WS269879_CSG"
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME
     // here you can set connection limits and so on
 });
