@@ -54,16 +54,27 @@ export default function Index() {
 
     return isLoading ? <div/>
         :
-        user ? <Friends/>
-        :
-        (<div className={classes.root}>
-                <div style={{width: "40%", marginLeft: "auto", marginRight: "auto"}}>
-                    <img style={{width: "80%", display: "block", marginLeft: "auto", marginRight: "auto"}}
-                         src={"/undraw/ninja.svg"}/>
-                    <Typography style={{textAlign: "center"}} variant={"h4"}>
-                        Sign in to see what games you and your friends have in common.
-                    </Typography>
+        user ? <div style={{
+                minHeight: "100%",
+                width: "100%",
+                display: "flex",
+                flexDirection: 'row'
+            }}
+            >
+                <div style={{flexGrow: 1, backgroundColor: "gold", height: "100%"}}/>
+                <div style={{display: "flex", flexDirection: "column"}}>
+                    <Friends/>
                 </div>
             </div>
-        )
+            :
+            (<div className={classes.root}>
+                    <div style={{width: "40%", marginLeft: "auto", marginRight: "auto"}}>
+                        <img style={{width: "80%", display: "block", marginLeft: "auto", marginRight: "auto"}}
+                             src={"/undraw/ninja.svg"}/>
+                        <Typography style={{textAlign: "center"}} variant={"h4"}>
+                            Sign in to see what games you and your friends have in common.
+                        </Typography>
+                    </div>
+                </div>
+            )
 }
