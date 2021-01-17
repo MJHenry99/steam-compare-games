@@ -50,5 +50,9 @@ export async function getFriendsDetails(): Promise<IUser[] | null> {
             return null;
         });
 
+    if (friends) {
+        friends.sort(((a, b) => a.steamName > b.steamName ? 1 : a.steamName < b.steamName ? -1 : 0));
+    }
+
     return friends;
 }
