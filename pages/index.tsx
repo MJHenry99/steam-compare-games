@@ -3,11 +3,11 @@ import {CurrentUserContext} from "./_app";
 import {makeStyles, Theme} from "@material-ui/core/styles";
 import {createStyles} from "@material-ui/styles";
 import Typography from "@material-ui/core/Typography";
-import {Button} from "@material-ui/core";
 import {loginWithSteamQueryKeyword} from "../src/utils/steam.utils";
-import {getSteamId, removeSteamId, setSteamId} from "../src/services/auth.service";
+import {getSteamId, setSteamId} from "../src/services/auth.service";
 import {login} from "../src/providers/data.provider";
 import {useRouter} from "next/router";
+import {Friends} from "../src/components/friends";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -52,18 +52,18 @@ export default function Index() {
         }
     }, [])
 
-    return (
-        <div className={classes.root}>
-            {
-                user ? null
-                    :
-                    <div style={{width: "40%", marginLeft: "auto", marginRight: "auto"}}>
-                        <img style={{width: "80%", display: "block", marginLeft: "auto", marginRight: "auto"}} src={"/undraw/ninja.svg"}/>
-                        <Typography style={{textAlign: "center"}} variant={"h4"}>
-                            Sign in to see what games you and your friends have in common.
-                        </Typography>
-                    </div>
-            }
-        </div>
-    )
+    return isLoading ? <div/>
+        :
+        user ? <Friends/>
+        :
+        (<div className={classes.root}>
+                <div style={{width: "40%", marginLeft: "auto", marginRight: "auto"}}>
+                    <img style={{width: "80%", display: "block", marginLeft: "auto", marginRight: "auto"}}
+                         src={"/undraw/ninja.svg"}/>
+                    <Typography style={{textAlign: "center"}} variant={"h4"}>
+                        Sign in to see what games you and your friends have in common.
+                    </Typography>
+                </div>
+            </div>
+        )
 }
