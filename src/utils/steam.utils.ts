@@ -12,3 +12,7 @@ export function onSteamApiFail(res: NextApiResponse, axiosResponse: AxiosRespons
 export interface IDBSteamIds {
     steamid64: string
 }
+
+export const steamAPIUrl = "http://api.steampowered.com"
+
+export const loginWithSteamQueryKeyword = "openid.identity";

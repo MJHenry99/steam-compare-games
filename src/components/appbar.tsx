@@ -9,6 +9,7 @@ import {CurrentUserContext} from "../../pages/_app";
 import {Avatar, ClickAwayListener, Grow, MenuItem, MenuList, Paper, Popper} from "@material-ui/core";
 import {logout} from "../providers/data.provider";
 import {createStyles} from "@material-ui/styles";
+import {useRouter} from "next/router";
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -31,7 +32,7 @@ export const MyAppBar = () => {
     const classes = useStyles();
 
     const [isOpen, setIsOpen] = useState<boolean>(false);
-    const avatarRef = useRef(null)
+    const avatarRef = useRef(null);
 
     const user = React.useContext(CurrentUserContext);
 
@@ -82,12 +83,22 @@ export const MyAppBar = () => {
                                 </Popper>
                                 <IconButton ref={avatarRef} onClick={handleToggle}>
                                     <Avatar>
-                                        GG
+                                        {user.steamName ? user.steamName.charAt(0) : "?"}
                                     </Avatar>
                                 </IconButton>
                             </>
                             :
-                            <Button><img alt="Login with steam" src={"/steam/steam_login.png"}/></Button>
+                            <form action="https://steamcommunity.com/openid/login" method="post">
+                                <input type="hidden" name="openid.identity"
+                                       value="http://specs.openid.net/auth/2.0/identifier_select" />
+                                <input type="hidden" name="openid.claimed_id"
+                                       value="http://specs.openid.net/auth/2.0/identifier_select" />
+                                <input type="hidden" name="openid.ns" value="http://specs.openid.net/auth/2.0" />
+                                <input type="hidden" name="openid.mode" value="checkid_setup" />
+                                <input type="hidden" name="openid.realm" value="http:\\localhost:3000" />
+                                <input type="hidden" name="openid.return_to" value="http:\\localhost:3000" />
+                                <Button type="submit"><img alt="Login with steam" src={"/steam/steam_login.png"}/></Button>
+                            </form>
                     }
                 </Toolbar>
             </AppBar>

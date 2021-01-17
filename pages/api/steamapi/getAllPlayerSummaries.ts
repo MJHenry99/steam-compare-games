@@ -32,7 +32,7 @@ interface IPlayerSummary {
     "locstatecode": string;
 }
 
-export interface IPlayerSummariesResponse {
+interface IPlayerSummariesResponse {
     steamid: string;
     username: string;
     profileUrl: string;

@@ -2,21 +2,12 @@
 
 import {dbConnection} from "../../src/database.connection";
 import {DateTime} from "luxon";
+import axios from "axios";
 
 export default async (req, res) => {
 
-  const lastRanSql = `SELECT MAX(timestamp) FROM \`getgamesruntimes\``;
-  const [val] = await dbConnection.promise().query(lastRanSql);
-  const lastRan = val[0]["MAX(timestamp)"]
+  console.log(req.body["openid.identity"]);
 
-  if (lastRan) {
-    // console.log(DateTime.fromMillis(lastRan).minus({hours: 4}))
-    const a = DateTime.fromMillis(lastRan).minus({hours: 24})
-    console.log(a.diffNow("hours").hours)
-  }
-
-
-  res.statusCode = 200;
-  res.json({ value: lastRan })
-  return res;
+  res.statusCode = 200
+  res.json({ data: "null" })
 }
