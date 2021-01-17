@@ -1,8 +1,20 @@
-import {Checkbox, FormControlLabel, FormGroup} from "@material-ui/core";
+import {Checkbox, CheckboxProps, FormControlLabel, FormGroup, withStyles} from "@material-ui/core";
 import React, {useEffect, useState} from "react";
 import {getFriendsDetails} from "../providers/data.provider";
 import {IUser} from "../models/user.model";
 import {CurrentUserContext} from "../../pages/_app";
+import theme from "../theme";
+
+
+const CustomCheckbox = withStyles({
+    root: {
+        color: "#ffffff",
+        '&$checked': {
+            color: theme.palette.secondary.main,
+        },
+    },
+    checked: {},
+})((props: CheckboxProps) => <Checkbox color="default" {...props} />);
 
 export const Friends = () => {
 
@@ -34,15 +46,16 @@ export const Friends = () => {
         null
         :
         (
-            <FormGroup row={false} style={{overflowY: "auto"}}>
+            <FormGroup row={false} style={{maxHeight: "100%", flexWrap: "nowrap", overflowY: "auto"}}>
                 {
                     friends.map((friendObject, index) => {
                         return (
                             <FormControlLabel
+                                style={{marginLeft: 5}}
                                 // style={friendObject.isChecked ? null : {display: "none"}}
                                 key={friendObject.friend.steamId + index}
                                 control={
-                                    <Checkbox
+                                    <CustomCheckbox
                                         checked={friendObject.isChecked}
                                         onChange={() => {
                                             let clonedList = friends.slice();
@@ -50,7 +63,7 @@ export const Friends = () => {
                                             setFriends(clonedList);
                                         }}
                                         name="checkedB"
-                                        color={"secondary"}
+                                        color={"default"}
                                     />
                                 }
                                 label={friendObject.friend.steamName + (friendObject.friend.steamName === user.steamName ? " (Me)" : "")}

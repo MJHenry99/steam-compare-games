@@ -1,0 +1,99 @@
+.ballsLoadingContainer {
+    height: 100%;
+    width: 100%;
+    font-family: Roboto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.ballsLoadingLoader {
+    height: 20px;
+    width: 250px;
+    display: flex;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+}
+.ballsLoadingLoader--dot {
+    animation-name: ballsLoadingLoader;
+    animation-timing-function: ease-in-out;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+    height: 20px;
+    width: 20px;
+    border-radius: 100%;
+    position: absolute;
+}
+.ballsLoadingLoader--dot:first-child {
+    background-color: #505050;
+    animation-delay: 0.5s;
+}
+.ballsLoadingLoader--dot:nth-child(2) {
+    background-color: #646464;
+    animation-delay: 0.4s;
+}
+.ballsLoadingLoader--dot:nth-child(3) {
+    background-color: #787878;
+    animation-delay: 0.3s;
+}
+.ballsLoadingLoader--dot:nth-child(4) {
+    background-color: #8c8c8c;
+    animation-delay: 0.2s;
+}
+.ballsLoadingLoader--dot:nth-child(5) {
+    background-color: #a0a0a0;
+    animation-delay: 0.1s;
+}
+.ballsLoadingLoader--dot:nth-child(6) {
+    background-color: #b4b4b4;
+    animation-delay: 0s;
+}
+.ballsLoadingLoader--text {
+    top: 200%;
+    left: 0;
+    right: 0;
+    width: 4rem;
+    font-size: large;
+    margin-left: auto;
+    margin-right: auto;
+}
+.ballsLoadingLoader--text:after {
+    content: "Loading";
+    font-weight: bold;
+    animation-name: ballsLoadingLoading-text;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes ballsLoadingLoader {
+    15% {
+        transform: translateX(0);
+    }
+    45% {
+        transform: translateX(230px);
+    }
+    65% {
+        transform: translateX(230px);
+    }
+    95% {
+        transform: translateX(0);
+    }
+}
+@keyframes ballsLoadingLoading-text {
+    0% {
+        content: "Loading";
+    }
+    25% {
+        content: "Loading.";
+    }
+    50% {
+        content: "Loading..";
+    }
+    75% {
+        content: "Loading...";
+    }
+}

@@ -8,6 +8,7 @@ import {IUser} from "../src/models/user.model";
 import {$currentUser} from "../src/providers/data.provider";
 import {filter} from "rxjs/operators";
 import {AppBase} from "../src/components/app.base";
+import "../styles/balls-loading.css";
 
 export const CurrentUserContext = createContext(null as IUser | null);
 

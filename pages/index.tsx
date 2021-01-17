@@ -8,6 +8,8 @@ import {getSteamId, setSteamId} from "../src/services/auth.service";
 import {login} from "../src/providers/data.provider";
 import {useRouter} from "next/router";
 import {Friends} from "../src/components/friends";
+import {Box, useTheme} from "@material-ui/core";
+import {BallsLoading} from "../src/components/balls.loading";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -29,6 +31,8 @@ export default function Index() {
     const user = React.useContext(CurrentUserContext);
 
     const [isLoading, setIsLoading] = useState<boolean>(true);
+
+    useTheme().palette.primary.dark
 
     useEffect(() => {
         if (window.location.search) {
@@ -52,19 +56,22 @@ export default function Index() {
         }
     }, [])
 
-    return isLoading ? <div/>
+    return isLoading ?
+        <BallsLoading />
         :
         user ? <div style={{
-                minHeight: "100%",
+                height: "100%",
                 width: "100%",
                 display: "flex",
                 flexDirection: 'row'
             }}
             >
-                <div style={{flexGrow: 1, backgroundColor: "gold", height: "100%"}}/>
-                <div style={{display: "flex", flexDirection: "column"}}>
-                    <Friends/>
+                <div style={{flexGrow: 1, display: "flex", flexDirection: "column", justifyContent: "center"}}>
+                    <img src={"/undraw/welcome_cats.svg"} style={{marginLeft: "auto", marginRight: "auto", height: "50%"}}/>
                 </div>
+                <Box border={1} borderColor="background.default">
+                    <Friends/>
+                </Box>
             </div>
             :
             (<div className={classes.root}>
