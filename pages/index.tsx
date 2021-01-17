@@ -7,6 +7,7 @@ import {Button} from "@material-ui/core";
 import {loginWithSteamQueryKeyword} from "../src/utils/steam.utils";
 import {getSteamId, removeSteamId, setSteamId} from "../src/services/auth.service";
 import {login} from "../src/providers/data.provider";
+import {useRouter} from "next/router";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -23,6 +24,7 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function Index() {
 
     const classes = useStyles();
+    const router = useRouter();
 
     const user = React.useContext(CurrentUserContext);
 
@@ -38,11 +40,16 @@ export default function Index() {
             }
         }
 
-        login(getSteamId()).then(() => {
+        if (!user) {
+            login(getSteamId()).then(() => {
 
-        }).finally(() => {
+            }).finally(() => {
+                router.push("")
+                setIsLoading(false);
+            });
+        } else {
             setIsLoading(false);
-        });
+        }
     }, [])
 
     return (
@@ -51,31 +58,10 @@ export default function Index() {
                 user ? null
                     :
                     <div style={{width: "40%", marginLeft: "auto", marginRight: "auto"}}>
-                        {/*<img style={{width: "80%", display: "block", marginLeft: "auto", marginRight: "auto"}} src={"/undraw/ninja.svg"}/>*/}
-                        {/*<Typography style={{textAlign: "center"}} variant={"h4"}>Sign in to see what games you and your friends have in*/}
-                        {/*    common.</Typography>*/}
-                        <form action="https://steamcommunity.com/openid/login" method="post">
-                            <input type="hidden" name="openid.identity"
-                                   value="http://specs.openid.net/auth/2.0/identifier_select" />
-                            <input type="hidden" name="openid.claimed_id"
-                                   value="http://specs.openid.net/auth/2.0/identifier_select" />
-                            <input type="hidden" name="openid.ns" value="http://specs.openid.net/auth/2.0" />
-                            <input type="hidden" name="openid.mode" value="checkid_setup" />
-                            <input type="hidden" name="openid.realm" value="http:\\localhost:3000" />
-                            <input type="hidden" name="openid.return_to" value="http:\\localhost:3000" />
-                            <Button type="submit">Log in through Steam</Button>
-                        </form>
-                        <form action="http://localhost:3000/api/hello" method="post">
-                            <input type="hidden" name="openid.identity"
-                                   value="http://specs.openid.net/auth/2.0/identifier_select" />
-                            <input type="hidden" name="openid.claimed_id"
-                                   value="http://specs.openid.net/auth/2.0/identifier_select" />
-                            <input type="hidden" name="openid.ns" value="http://specs.openid.net/auth/2.0" />
-                            <input type="hidden" name="openid.mode" value="checkid_setup" />
-                            <input type="hidden" name="openid.realm" value="http:\\localhost:3000" />
-                            <input type="hidden" name="openid.return_to" value="http:\\localhost:3000" />
-                            <Button disabled={isLoading} type="submit">Log in through FUCK ME</Button>
-                        </form>
+                        <img style={{width: "80%", display: "block", marginLeft: "auto", marginRight: "auto"}} src={"/undraw/ninja.svg"}/>
+                        <Typography style={{textAlign: "center"}} variant={"h4"}>
+                            Sign in to see what games you and your friends have in common.
+                        </Typography>
                     </div>
             }
         </div>
