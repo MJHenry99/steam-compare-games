@@ -37,7 +37,7 @@ export const Friends = () => {
         (
             <div style={{display: "flex", flexDirection: "row", width: "100%"}}>
                 <div style={{width: "90%"}}>
-                    <FormGroup row style={{maxHeight: "20%", overflowY: "auto"}}>
+                    <FormGroup row style={{maxHeight: "30%", overflowY: "auto"}}>
                         {
                             friends.map((friendObject, index) => {
                                 return (
