@@ -1,4 +1,4 @@
-import {IUser} from "../models/user";
+import {IUser} from "../models/user.model";
 import {BehaviorSubject} from "rxjs";
 import ApiService from "../services/api.service";
 import {removeSteamId} from "../services/auth.service";

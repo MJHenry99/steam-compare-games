@@ -1,24 +1,31 @@
 import {Checkbox, FormControlLabel, FormGroup} from "@material-ui/core";
 import {useEffect, useState} from "react";
 import {getFriendsDetails} from "../providers/data.provider";
-import {IUser} from "../models/user";
+import {IUser} from "../models/user.model";
 
 export const Friends = () => {
 
     const [isLoading, setIsLoading] = useState<boolean>(true);
-    const [friends, setFriends] = useState<IUser[]>([])
+    const [friends, setFriends] = useState<{isChecked: boolean, friend: IUser}[]>([])
 
     useEffect(() => {
         getFriendsDetails().then((returnedFriends) => {
             if (!returnedFriends) {
                 setFriends([]);
             } else {
-                setFriends(returnedFriends);
+                let innerFriends = []
+                for (let i = 0; i < returnedFriends.length; i++) {
+                    innerFriends.push({isChecked: false, friend: returnedFriends[i]});
+                }
+                setFriends(innerFriends);
             }
+        }).finally(() => {
             setIsLoading(false);
         });
-    })
+    }, [])
 
+
+    const [stateList, setStateList] = useState<{steamId: string, isChecked: boolean}[]>([])
 
     const states = {};
 
@@ -28,25 +35,26 @@ export const Friends = () => {
         (
             <FormGroup row>
                 {
-                    friends.map((friend, index) => {
-                        states[friend.steamId] = false;
-                        const [state, setState] = useState<boolean>(false);
+                    friends.map((friendObject, index) => {
+                        // states[friend.steamId] = false;
+
+                        // const [state, setState] = useState<boolean>(false);
                         return (
                             <FormControlLabel
-                                key={friend.steamId + index}
+                                key={friendObject.friend.steamId + index}
                                 control={
                                     <Checkbox
-                                        checked={state}
+                                        checked={friendObject.isChecked}
                                         onChange={() => {
-                                            states[friend.steamId] = !states[friend.steamId];
-                                            setState((prevState) => !prevState);
-                                            console.log(states);
+                                            let clonedList = friends.slice();
+                                            clonedList[index].isChecked = !clonedList[index].isChecked;
+                                            setFriends(clonedList);
                                         }}
                                         name="checkedB"
                                         color={"secondary"}
                                     />
                                 }
-                                label={friend.steamName}
+                                label={friendObject.friend.steamName}
                             />
                         )
                     })

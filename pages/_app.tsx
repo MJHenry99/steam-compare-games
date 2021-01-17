@@ -4,7 +4,7 @@ import {ThemeProvider} from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import theme from '../src/theme';
 import {AppProps} from "next/app";
-import {IUser} from "../src/models/user";
+import {IUser} from "../src/models/user.model";
 import {$currentUser} from "../src/providers/data.provider";
 import {filter} from "rxjs/operators";
 import {AppBase} from "../src/components/app.base";

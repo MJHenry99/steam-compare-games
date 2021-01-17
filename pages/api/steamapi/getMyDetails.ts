@@ -1,17 +1,15 @@
 import axios from "axios";
 import {onSteamApiFail, steamAPIUrl} from "../../../src/utils/steam.utils";
 import {NextApiRequest, NextApiResponse} from "next";
-import {IUser} from "../../../src/models/user";
+import {IUser} from "../../../src/models/user.model";
 import {ISteamPlayerModel} from "../../../src/models/steam.player.model";
-
-//Kieran = 76561198055694097
-//ME = 76561198088490664
 
 interface ISteamResponse {
     response: {
         players: ISteamPlayerModel[]
     }
 }
+
 
 interface IReqParams {
     steamid?: string
