@@ -6,8 +6,8 @@ import axios from "axios";
 
 export default async (req, res) => {
 
-  console.log(req.body["openid.identity"]);
+  const a = await axios.get(`http://store.steampowered.com/api/appdetails?appids=${req.query.appId}&cc=gb&l=en`);
 
   res.statusCode = 200
-  res.json({ data: "null" })
+  res.json({ NOTHING: a.data })
 }

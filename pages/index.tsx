@@ -8,8 +8,10 @@ import {getSteamId, setSteamId} from "../src/services/auth.service";
 import {login} from "../src/providers/data.provider";
 import {useRouter} from "next/router";
 import {Friends} from "../src/components/friends";
-import {Box, useTheme} from "@material-ui/core";
+import {Box, Paper, useTheme} from "@material-ui/core";
 import {BallsLoading} from "../src/components/balls.loading";
+import {CompareGames} from "../src/components/compare.games";
+import {ISelectableFriendModel} from "../src/models/selectable.friend.model";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -32,6 +34,8 @@ export default function Index() {
 
     const [isLoading, setIsLoading] = useState<boolean>(true);
 
+    const [friends, setFriends] = useState<ISelectableFriendModel[]>([])
+
     useTheme().palette.primary.dark
 
     useEffect(() => {
@@ -48,7 +52,7 @@ export default function Index() {
             login(getSteamId()).then(() => {
 
             }).finally(() => {
-                router.push("")
+                router.push("");
                 setIsLoading(false);
             });
         } else {
@@ -57,9 +61,10 @@ export default function Index() {
     }, [])
 
     return isLoading ?
-        <BallsLoading />
+        <BallsLoading/>
         :
-        user ? <div style={{
+        user ? <Paper style={{
+                backgroundColor: "#424242",
                 height: "100%",
                 width: "100%",
                 display: "flex",
@@ -67,12 +72,13 @@ export default function Index() {
             }}
             >
                 <div style={{flexGrow: 1, display: "flex", flexDirection: "column", justifyContent: "center"}}>
-                    <img src={"/undraw/welcome_cats.svg"} style={{marginLeft: "auto", marginRight: "auto", width: "50%"}}/>
+                    {/*<img src={"/undraw/welcome_cats.svg"} style={{marginLeft: "auto", marginRight: "auto", width: "50%"}}/>*/}
+                    <CompareGames steamFriends={friends}/>
                 </div>
-                <Box border={1} borderColor="rgba(0, 0, 0, 0.12)" style={{minHeight: "100%"}}>
-                    <Friends/>
+                <Box borderLeft={1} borderColor="rgba(0, 0, 0, 0.12)" style={{minHeight: "100%"}}>
+                    <Friends steamFriends={friends} setSteamFriends={setFriends}/>
                 </Box>
-            </div>
+            </Paper>
             :
             (<div className={classes.root}>
                     <div style={{width: "40%", marginLeft: "auto", marginRight: "auto"}}>

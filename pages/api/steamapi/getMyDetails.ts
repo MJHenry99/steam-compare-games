@@ -6,13 +6,13 @@ import {ISteamPlayerModel} from "../../../src/models/steam.player.model";
 
 interface ISteamResponse {
     response: {
-        players: ISteamPlayerModel[]
-    }
+        players: ISteamPlayerModel[];
+    };
 }
 
 
 interface IReqParams {
-    steamid?: string
+    steamid?: string;
 }
 
 export default async function getMyDetails(req: NextApiRequest, res: NextApiResponse) {

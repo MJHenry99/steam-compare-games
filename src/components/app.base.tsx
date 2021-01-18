@@ -7,11 +7,11 @@ const useStyles = makeStyles((theme) =>
         main: {
             height: "calc(100vh - 64px)",
             width: "100%",
-            padding: 20,
+            padding: 30,
         },
         card: {
             height: "100%",
-            backgroundColor: "#5a5a5a",
+            backgroundColor: theme.palette.primary.main,
         },
         cardContent: {
             height: "100%",

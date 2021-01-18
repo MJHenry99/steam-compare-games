@@ -16,3 +16,15 @@ export interface IDBSteamIds {
 export const steamAPIUrl = "http://api.steampowered.com"
 
 export const loginWithSteamQueryKeyword = "openid.identity";
+
+export const diff = function (array: number[], array2: number[]) {
+    let ret = [];
+    array2.sort();
+    array.sort();
+    for (let i = 0; i < array2.length; i += 1) {
+        if (array.indexOf(array2[i]) > -1) {
+            ret.push(array2[i]);
+        }
+    }
+    return ret;
+};

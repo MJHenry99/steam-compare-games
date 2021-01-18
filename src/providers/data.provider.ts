@@ -3,6 +3,9 @@ import {BehaviorSubject} from "rxjs";
 import ApiService from "../services/api.service";
 import {removeSteamId} from "../services/auth.service";
 import NoUserError from "../errors/no.user.error";
+import NoSteamIdsError from "../errors/no.steam.ids.error";
+import {ISteamGamesDetails} from "../models/steam.game.details";
+import {ISteamPlayerModel} from "../models/steam.player.model";
 
 const currentUser = new BehaviorSubject<IUser | null | undefined>(undefined);
 let user: IUser | null;
@@ -55,4 +58,18 @@ export async function getFriendsDetails(): Promise<IUser[] | null> {
     }
 
     return friends;
+}
+
+export async function getSharedGames(steamIds: string[]): Promise<ISteamGamesDetails[]> {
+    if (!steamIds || steamIds.length < 1) {
+        throw new NoSteamIdsError();
+    }
+
+    const sharedGames: ISteamGamesDetails[] | null = await getAxios().getSharedGames(steamIds);
+
+    if (sharedGames) {
+        sharedGames.sort(((a, b) => a.name > b.name ? 1 : a.name < b.name ? -1 : 0));
+    }
+
+    return sharedGames;
 }

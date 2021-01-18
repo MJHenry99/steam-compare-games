@@ -5,6 +5,8 @@ import {IUser} from "../models/user.model";
 import {CurrentUserContext} from "../../pages/_app";
 import theme from "../theme";
 import {CircleLoading} from "./circle.loading";
+import {ISteamPlayerModel} from "../models/steam.player.model";
+import {ISelectableFriendModel} from "../models/selectable.friend.model";
 
 
 const CustomCheckbox = withStyles({
@@ -17,12 +19,18 @@ const CustomCheckbox = withStyles({
     checked: {},
 })((props: CheckboxProps) => <Checkbox color="default" {...props} />);
 
-export const Friends = () => {
+interface IFriendsProps {
+    steamFriends: ISelectableFriendModel[];
+    setSteamFriends: Function;
+}
+
+export const Friends = (props: IFriendsProps) => {
+
+    const {steamFriends, setSteamFriends} = props;
 
     const user = React.useContext(CurrentUserContext);
 
     const [isLoading, setIsLoading] = useState<boolean>(true);
-    const [friends, setFriends] = useState<{ isChecked: boolean, friend: IUser }[]>([])
 
     useEffect(() => {
         getFriendsDetails().then((returnedFriends) => {
@@ -36,7 +44,7 @@ export const Friends = () => {
                 }
             }
 
-            setFriends(innerFriends);
+            setSteamFriends(innerFriends);
         }).finally(() => {
             setIsLoading(false);
         });
@@ -52,7 +60,7 @@ export const Friends = () => {
             <FormGroup row={false}
                        style={{maxHeight: "100%", flexWrap: "nowrap", overflowY: "auto"}}>
                 {
-                    friends.map((friendObject, index) => {
+                    steamFriends.map((friendObject, index) => {
 
                         let labelText: string = "";
 
@@ -78,9 +86,9 @@ export const Friends = () => {
                                         <CustomCheckbox
                                             checked={friendObject.isChecked}
                                             onChange={() => {
-                                                let clonedList = friends.slice();
+                                                let clonedList = steamFriends.slice();
                                                 clonedList[index].isChecked = !clonedList[index].isChecked;
-                                                setFriends(clonedList);
+                                                setSteamFriends(clonedList);
                                             }}
                                             name="checkedB"
                                             color={"default"}
