@@ -67,9 +67,9 @@ export default function Index() {
             }}
             >
                 <div style={{flexGrow: 1, display: "flex", flexDirection: "column", justifyContent: "center"}}>
-                    <img src={"/undraw/welcome_cats.svg"} style={{marginLeft: "auto", marginRight: "auto", height: "50%"}}/>
+                    <img src={"/undraw/welcome_cats.svg"} style={{marginLeft: "auto", marginRight: "auto", width: "50%"}}/>
                 </div>
-                <Box border={1} borderColor="background.default">
+                <Box border={1} borderColor="rgba(0, 0, 0, 0.12)" style={{minHeight: "100%"}}>
                     <Friends/>
                 </Box>
             </div>

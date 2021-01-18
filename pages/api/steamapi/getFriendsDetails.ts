@@ -73,7 +73,7 @@ export default async function getFriendsDetails(req: NextApiRequest, res: NextAp
                 friends.push({
                     steamId: players[i].steamid,
                     steamName: players[i].personaname,
-                    avatarUrl: players[i].avatar,
+                    avatarUrl: players[i].avatarfull,
                     profileUrl: players[i].profileurl
                 });
             }

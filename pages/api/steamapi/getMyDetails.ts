@@ -46,7 +46,7 @@ export default async function getMyDetails(req: NextApiRequest, res: NextApiResp
         const user: IUser = {
             steamId: player.steamid,
             steamName: player.personaname,
-            avatarUrl: player.avatar,
+            avatarUrl: player.avatarfull,
             profileUrl: player.profileurl
 
         };

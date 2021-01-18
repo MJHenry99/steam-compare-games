@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) =>
         },
         card: {
             height: "100%",
-            backgroundColor: theme.palette.primary.dark,
+            backgroundColor: "#5a5a5a",
         },
         cardContent: {
             height: "100%",

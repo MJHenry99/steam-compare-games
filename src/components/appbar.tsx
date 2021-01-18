@@ -22,6 +22,10 @@ const useStyles = makeStyles((theme: Theme) =>
         title: {
             flexGrow: 1,
         },
+        logoutDialog: {
+            backgroundColor: theme.palette.primary.light
+        }
+
     })
 );
 
@@ -52,7 +56,7 @@ export const MyAppBar = () => {
 
     useEffect(() => {
         setCurrentUrl(window.location.protocol + "//" + window.location.hostname + (window.location.port ? ':' + window.location.port : ''));
-    }, [])
+    }, []);
 
 
     return (
@@ -75,7 +79,7 @@ export const MyAppBar = () => {
                                             {...TransitionProps}
                                             style={{transformOrigin: placement === 'bottom' ? "center top" : "center bottom"}}
                                         >
-                                            <Paper>
+                                            <Paper className={classes.logoutDialog}>
                                                 <ClickAwayListener onClickAway={handleClose}>
                                                     <MenuList autoFocusItem={isOpen}>
                                                         <MenuItem onClick={handleLogout}>Logout</MenuItem>
@@ -86,7 +90,7 @@ export const MyAppBar = () => {
                                     )}
                                 </Popper>
                                 <IconButton ref={avatarRef} onClick={handleToggle}>
-                                    <Avatar>
+                                    <Avatar src={user.avatarUrl}>
                                         {user.steamName ? user.steamName.charAt(0) : "?"}
                                     </Avatar>
                                 </IconButton>
