@@ -22,15 +22,15 @@ const CustomCheckbox = withStyles({
 interface IFriendsProps {
     steamFriends: ISelectableFriendModel[];
     setSteamFriends: Function;
+    setIsLoading: Function;
+    isLoading: boolean;
 }
 
 export const Friends = (props: IFriendsProps) => {
 
-    const {steamFriends, setSteamFriends} = props;
+    const {steamFriends, setSteamFriends, setIsLoading, isLoading} = props;
 
     const user = React.useContext(CurrentUserContext);
-
-    const [isLoading, setIsLoading] = useState<boolean>(true);
 
     useEffect(() => {
         getFriendsDetails().then((returnedFriends) => {

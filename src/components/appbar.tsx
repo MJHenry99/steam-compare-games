@@ -21,6 +21,7 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         title: {
             flexGrow: 1,
+            display: "flex"
         },
         logoutDialog: {
             backgroundColor: theme.palette.primary.light
@@ -66,9 +67,14 @@ export const MyAppBar = () => {
                     {/*<IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">*/}
                     {/*    <MenuIcon/>*/}
                     {/*</IconButton>*/}
-                    <Typography variant="h6" className={classes.title}>
-                        Compare Steam Games
-                    </Typography>
+                    <div className={classes.title}>
+                        <Typography variant="h6">
+                            Compare Steam Games
+                        </Typography>
+                        <Typography style={{marginLeft: 5, height: "100%", marginTop: "auto", marginBottom: "auto"}} variant="caption">
+                            v0.1.0
+                        </Typography>
+                    </div>
                     {
                         user ?
                             <>

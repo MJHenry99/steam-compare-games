@@ -18,11 +18,12 @@ const useStyles = makeStyles({
 
 interface ICompareGamesProps {
     steamFriends: ISelectableFriendModel[];
+    friendsLoading: boolean;
 }
 
 export const CompareGames = (props: ICompareGamesProps) => {
 
-    const {steamFriends} = props;
+    const {steamFriends, friendsLoading} = props;
 
     const [sharedGames, setSharedGames] = useState<ISteamGamesDetails[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(true)
@@ -57,7 +58,7 @@ export const CompareGames = (props: ICompareGamesProps) => {
         })();
     }, [steamFriends])
 
-    return isLoading ?
+    return isLoading || friendsLoading ?
         <CircleLoading sectionName={"your shared games."}/>
         :
         <Lists steamGames={sharedGames}/>

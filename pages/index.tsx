@@ -33,6 +33,7 @@ export default function Index() {
     const user = React.useContext(CurrentUserContext);
 
     const [isLoading, setIsLoading] = useState<boolean>(true);
+    const [friendsLoading, setFriendsLoading] = useState<boolean>(true);
 
     const [friends, setFriends] = useState<ISelectableFriendModel[]>([])
 
@@ -70,10 +71,10 @@ export default function Index() {
             >
                 <div style={{flexGrow: 1, display: "flex", flexDirection: "column", justifyContent: "center"}}>
                     {/*<img src={"/undraw/welcome_cats.svg"} style={{marginLeft: "auto", marginRight: "auto", width: "50%"}}/>*/}
-                    <CompareGames steamFriends={friends}/>
+                    <CompareGames steamFriends={friends} friendsLoading={friendsLoading}/>
                 </div>
                 <Box borderLeft={1} borderColor="rgba(0, 0, 0, 0.12)" style={{minHeight: "100%"}}>
-                    <Friends steamFriends={friends} setSteamFriends={setFriends}/>
+                    <Friends steamFriends={friends} setSteamFriends={setFriends} setIsLoading={setFriendsLoading} isLoading={friendsLoading}/>
                 </Box>
             </div>
             :
