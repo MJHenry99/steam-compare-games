@@ -10,6 +10,7 @@ import {Avatar, Box, Collapse, createStyles, Typography} from "@material-ui/core
 import {getSharedGames} from "../providers/data.provider";
 import {ISelectableFriendModel} from "../models/selectable.friend.model";
 import NoSteamIdsError from "../errors/no.steam.ids.error";
+import Lists from "./list";
 
 const useStyles = makeStyles({
     root: {
@@ -112,6 +113,10 @@ export const CompareGames = (props: ICompareGamesProps) => {
 
         })();
     }, [steamFriends])
+
+    return (
+        <Lists steamGames={sharedGames} />
+    )
 
     return (
         <TableContainer className={classes.container}>
