@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) =>
         },
         card: {
             height: "100%",
-            backgroundColor: theme.palette.primary.main,
+            backgroundColor: "#424242",
         },
         cardContent: {
             height: "100%",
@@ -32,7 +32,7 @@ export const AppBase = (props) => {
 
             <main className={classes.main}>
                 <Card className={classes.card}>
-                    <CardContent className={classes.cardContent}>
+                    <CardContent className={classes.cardContent} style={{padding: 30}}>
                         {props.children}
                     </CardContent>
                 </Card>

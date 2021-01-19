@@ -36,8 +36,6 @@ export default function Index() {
 
     const [friends, setFriends] = useState<ISelectableFriendModel[]>([])
 
-    useTheme().palette.primary.dark
-
     useEffect(() => {
         if (window.location.search) {
             const urlParams = new URLSearchParams(window.location.search);
@@ -63,8 +61,7 @@ export default function Index() {
     return isLoading ?
         <BallsLoading/>
         :
-        user ? <Paper style={{
-                backgroundColor: "#424242",
+        user ? <div style={{
                 height: "100%",
                 width: "100%",
                 display: "flex",
@@ -78,7 +75,7 @@ export default function Index() {
                 <Box borderLeft={1} borderColor="rgba(0, 0, 0, 0.12)" style={{minHeight: "100%"}}>
                     <Friends steamFriends={friends} setSteamFriends={setFriends}/>
                 </Box>
-            </Paper>
+            </div>
             :
             (<div className={classes.root}>
                     <div style={{width: "40%", marginLeft: "auto", marginRight: "auto"}}>

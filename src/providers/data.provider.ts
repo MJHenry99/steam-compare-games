@@ -54,7 +54,7 @@ export async function getFriendsDetails(): Promise<IUser[] | null> {
         });
 
     if (friends) {
-        friends.sort(((a, b) => a.steamName > b.steamName ? 1 : a.steamName < b.steamName ? -1 : 0));
+        friends.sort(((a, b) => a.steamName.toLowerCase() > b.steamName.toLowerCase() ? 1 : a.steamName.toLowerCase() < b.steamName.toLowerCase() ? -1 : 0));
     }
 
     return friends;
@@ -68,7 +68,7 @@ export async function getSharedGames(steamIds: string[]): Promise<ISteamGamesDet
     const sharedGames: ISteamGamesDetails[] | null = await getAxios().getSharedGames(steamIds);
 
     if (sharedGames) {
-        sharedGames.sort(((a, b) => a.name > b.name ? 1 : a.name < b.name ? -1 : 0));
+        sharedGames.sort(((a, b) => a.name.toLowerCase() > b.name.toLowerCase() ? 1 : a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 0));
     }
 
     return sharedGames;

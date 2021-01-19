@@ -1,11 +1,17 @@
 import {CircularProgress, Typography} from "@material-ui/core";
 
-export const CircleLoading = ({sectionName}) => {
+interface CircleLoadingProps {
+    sectionName?: string;
+}
+
+export const CircleLoading = (props: CircleLoadingProps) => {
+
+    const {sectionName} = props;
 
     return (
         <div style={{width: "100%", height: "100%", display: "flex", flexDirection: "column", justifyContent: "center"}}>
 
-            <CircularProgress style={{marginLeft: "auto", marginRight: "auto"}} />
+            <CircularProgress color={"secondary"} style={{marginLeft: "auto", marginRight: "auto"}} />
             {
                 sectionName ?
                     <Typography style={{marginLeft: "auto", marginRight: "auto"}}>
