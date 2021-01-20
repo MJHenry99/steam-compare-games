@@ -27,7 +27,6 @@ export default async function getSharedGames(req: NextApiRequest, res: NextApiRe
         }
 
         const steamIdsArray: string[] = steamids.split(",")
-        console.log(steamIdsArray)
 
 
         let games: ISteamGamesDetails[];
@@ -59,12 +58,10 @@ export default async function getSharedGames(req: NextApiRequest, res: NextApiRe
 
             if (!appIds) {
                 appIds = gameIds;
-                console.log(appIds);
                 games = steamGames;
             } else {
                 const localArray: number[] = appIds;
                 appIds = diff(localArray, gameIds);
-                console.log(appIds);
             }
 
         }

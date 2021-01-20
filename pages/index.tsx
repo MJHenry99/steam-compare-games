@@ -70,7 +70,6 @@ export default function Index() {
             }}
             >
                 <div style={{flexGrow: 1, display: "flex", flexDirection: "column", justifyContent: "center"}}>
-                    {/*<img src={"/undraw/welcome_cats.svg"} style={{marginLeft: "auto", marginRight: "auto", width: "50%"}}/>*/}
                     <CompareGames steamFriends={friends} friendsLoading={friendsLoading}/>
                 </div>
                 <Box borderLeft={1} borderColor="rgba(0, 0, 0, 0.12)" style={{minHeight: "100%"}}>

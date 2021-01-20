@@ -6,6 +6,7 @@ import {ISelectableFriendModel} from "../models/selectable.friend.model";
 import NoSteamIdsError from "../errors/no.steam.ids.error";
 import Lists from "./list";
 import {CircleLoading} from "./circle.loading";
+import {Empty} from "./empty";
 
 const useStyles = makeStyles({
     root: {
@@ -26,6 +27,7 @@ export const CompareGames = (props: ICompareGamesProps) => {
     const {steamFriends, friendsLoading} = props;
 
     const [sharedGames, setSharedGames] = useState<ISteamGamesDetails[]>([]);
+    const [selectedFriendIds, setSelectedFriendIds] = useState<string[]>([])
     const [isLoading, setIsLoading] = useState<boolean>(true)
 
     useEffect(() => {
@@ -41,25 +43,30 @@ export const CompareGames = (props: ICompareGamesProps) => {
                     steamIds.push(steamFriend.friend.steamId);
                 }
             }
+            setSelectedFriendIds(steamIds);
 
             await getSharedGames(steamIds)
                 .then((games) => {
-                    setSharedGames(games)
+                    setSharedGames(games);
                 })
                 .catch((error) => {
                     if (!(error instanceof NoSteamIdsError))
                         console.log(error)
-                    setSharedGames([])
+                    setSharedGames([]);
                 })
                 .finally(() => {
                     setIsLoading(false);
-                })
+                });
 
         })();
-    }, [steamFriends])
+    }, [steamFriends]);
 
     return isLoading || friendsLoading ?
         <CircleLoading sectionName={"your shared games."}/>
         :
-        <Lists steamGames={sharedGames}/>
+        sharedGames.length > 0 ?
+            <Lists steamGames={sharedGames}/>
+            :
+            <Empty
+                message={selectedFriendIds.length > 0 ? "These people don't share any games." : "You have not selected any people."}/>
 }
