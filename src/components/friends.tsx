@@ -1,4 +1,13 @@
-import {Avatar, Checkbox, CheckboxProps, FormControlLabel, FormGroup, withStyles} from "@material-ui/core";
+import {
+    Avatar,
+    Checkbox,
+    CheckboxProps,
+    Divider,
+    FormControlLabel,
+    FormGroup,
+    Typography,
+    withStyles
+} from "@material-ui/core";
 import React, {useEffect, useState} from "react";
 import {getFriendsDetails} from "../providers/data.provider";
 import {IUser} from "../models/user.model";
@@ -57,8 +66,10 @@ export const Friends = (props: IFriendsProps) => {
         </div>
         :
         (
+            <div style={{height: "100%", width: "100%"}}>
+                <Typography variant={"subtitle1"} style={{height: 30}}><u>Friends</u></Typography>
             <FormGroup row={false}
-                       style={{maxHeight: "100%", flexWrap: "nowrap", overflowY: "auto"}}>
+                       style={{maxHeight: "calc(100% - 30px)", flexWrap: "nowrap", overflowY: "auto"}}>
                 {
                     steamFriends.map((friendObject, index) => {
 
@@ -78,6 +89,7 @@ export const Friends = (props: IFriendsProps) => {
                         labelText += friendObject.friend.steamName === user.steamName ? " (me)" : ""
 
                         return (
+                            <>
                             <FormControlLabel
                                 style={{marginLeft: 5, marginRight: 20, marginTop: 5, marginBottom: 5,}}
                                 key={friendObject.friend.steamId + index}
@@ -98,10 +110,13 @@ export const Friends = (props: IFriendsProps) => {
                                 }
                                 label={labelText}
                             />
+                            <Divider />
+                            </>
 
                         )
                     })
                 }
             </FormGroup>
+            </div>
         )
 }

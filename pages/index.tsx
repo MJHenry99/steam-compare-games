@@ -8,19 +8,52 @@ import {getSteamId, setSteamId} from "../src/services/auth.service";
 import {login} from "../src/providers/data.provider";
 import {useRouter} from "next/router";
 import {Friends} from "../src/components/friends";
-import {Box, Paper, useTheme} from "@material-ui/core";
+import {Box, Divider, useTheme} from "@material-ui/core";
 import {BallsLoading} from "../src/components/balls.loading";
 import {CompareGames} from "../src/components/compare.games";
 import {ISelectableFriendModel} from "../src/models/selectable.friend.model";
+import HiddenCss from "@material-ui/core/Hidden/HiddenCss";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
-        root: {
+        notLoggedIn: {
             minHeight: "100%",
             width: "100%",
             display: "flex",
             flexDirection: 'column',
             justifyContent: 'center'
+        },
+        loggedIn: {
+            height: "100%",
+            width: "100%",
+            display: "flex",
+            [theme.breakpoints.down("sm")]: {
+                flexDirection: 'column'
+            },
+            [theme.breakpoints.up("md")]: {
+                flexDirection: 'row'
+            }
+        },
+        compareGamesContainer: {
+            [theme.breakpoints.down("sm")]: {
+                flex: "2 2 0",
+                order: 2,
+            },
+            [theme.breakpoints.up("md")]: {
+                flex: "4 3 0",
+                order: 0,
+            },
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center"
+        },
+        friendsContainer: {
+            flex: "1 1 0",
+            order: 2,
+            [theme.breakpoints.down("sm")]: {
+                order: 0,
+                maxHeight: "30%"
+            }
         }
     })
 );
@@ -35,7 +68,7 @@ export default function Index() {
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [friendsLoading, setFriendsLoading] = useState<boolean>(true);
 
-    const [friends, setFriends] = useState<ISelectableFriendModel[]>([])
+    const [friends, setFriends] = useState<ISelectableFriendModel[]>([]);
 
     useEffect(() => {
         if (window.location.search) {
@@ -62,22 +95,30 @@ export default function Index() {
     return isLoading ?
         <BallsLoading/>
         :
-        user ? <div style={{
-                height: "100%",
-                width: "100%",
-                display: "flex",
-                flexDirection: 'row'
-            }}
+        user ? <div
+                className={classes.loggedIn}
             >
-                <div style={{flexGrow: 1, display: "flex", flexDirection: "column", justifyContent: "center"}}>
-                    <CompareGames steamFriends={friends} friendsLoading={friendsLoading}/>
+                <div className={classes.compareGamesContainer}>
+                    <Typography variant={"subtitle1"} style={{height: 30}}><u>Shared Games</u></Typography>
+                    <div style={{width: "100%", height: "calc(100% - 30px)"}}>
+                        <CompareGames steamFriends={friends} friendsLoading={friendsLoading}/>
+                    </div>
                 </div>
-                <Box borderLeft={1} borderColor="rgba(0, 0, 0, 0.12)" style={{minHeight: "100%"}}>
-                    <Friends steamFriends={friends} setSteamFriends={setFriends} setIsLoading={setFriendsLoading} isLoading={friendsLoading}/>
+                <div style={{order: 1}}>
+                    <HiddenCss smDown>
+                        <Divider style={{width: 1, height: "calc(100% - 30px)", marginTop: 30}}/>
+                    </HiddenCss>
+                    <HiddenCss mdUp>
+                        <Divider style={{marginTop: 5, marginBottom: 5}}/>
+                    </HiddenCss>
+                </div>
+                <Box borderColor="rgba(0, 0, 0, 0.12)" className={classes.friendsContainer}>
+                    <Friends steamFriends={friends} setSteamFriends={setFriends} setIsLoading={setFriendsLoading}
+                             isLoading={friendsLoading}/>
                 </Box>
             </div>
             :
-            (<div className={classes.root}>
+            (<div className={classes.notLoggedIn}>
                     <div style={{width: "40%", marginLeft: "auto", marginRight: "auto"}}>
                         <img style={{width: "80%", display: "block", marginLeft: "auto", marginRight: "auto"}}
                              src={"/undraw/ninja.svg"}/>

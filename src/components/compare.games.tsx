@@ -7,6 +7,7 @@ import NoSteamIdsError from "../errors/no.steam.ids.error";
 import Lists from "./list";
 import {CircleLoading} from "./circle.loading";
 import {Empty} from "./empty";
+import {Typography} from "@material-ui/core";
 
 const useStyles = makeStyles({
     root: {
@@ -27,8 +28,8 @@ export const CompareGames = (props: ICompareGamesProps) => {
     const {steamFriends, friendsLoading} = props;
 
     const [sharedGames, setSharedGames] = useState<ISteamGamesDetails[]>([]);
-    const [selectedFriendIds, setSelectedFriendIds] = useState<string[]>([])
-    const [isLoading, setIsLoading] = useState<boolean>(true)
+    const [selectedFriendIds, setSelectedFriendIds] = useState<string[]>([]);
+    const [isLoading, setIsLoading] = useState<boolean>(true);
 
     useEffect(() => {
 
@@ -65,7 +66,7 @@ export const CompareGames = (props: ICompareGamesProps) => {
         <CircleLoading sectionName={"your shared games."}/>
         :
         sharedGames.length > 0 ?
-            <Lists steamGames={sharedGames}/>
+                <Lists steamGames={sharedGames}/>
             :
             <Empty
                 message={selectedFriendIds.length > 0 ? "These people don't share any games." : "You have not selected any people."}/>

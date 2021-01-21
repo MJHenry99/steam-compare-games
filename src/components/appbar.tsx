@@ -13,7 +13,7 @@ import {createStyles} from "@material-ui/styles";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
-        root: {
+        notLoggedIn: {
             flexGrow: 1,
         },
         menuButton: {
@@ -61,7 +61,7 @@ export const MyAppBar = () => {
 
 
     return (
-        <div className={classes.root}>
+        <div className={classes.notLoggedIn}>
             <AppBar position="static">
                 <Toolbar>
                     {/*<IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">*/}
